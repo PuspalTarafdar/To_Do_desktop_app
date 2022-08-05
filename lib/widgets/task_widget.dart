@@ -39,12 +39,29 @@ class _TaskWidgetState extends State<TaskWidget> {
             },
             ),
             Expanded(
-              child: Text(
-                widget.task.taskTitle!,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24.0,
-                )
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.task.taskTitle!,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                      )
+                    ),
+                     Text(
+                      widget.task.taskDescription!,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 206, 206, 206),
+                        fontSize: 15.0,
+                      )
+                    ),
+                  ],
+                ),
               ),
             ),
             IconButton(
@@ -58,6 +75,8 @@ class _TaskWidgetState extends State<TaskWidget> {
             )
         ],
       )
+
+
     );
     
   }
