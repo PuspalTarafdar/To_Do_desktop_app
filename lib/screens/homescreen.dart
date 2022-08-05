@@ -46,74 +46,76 @@ Stream<List<TaskModel>>? fetchAllTask;
           child: Container(
             padding: const EdgeInsets.all(20.0),
             width: MediaQuery.of(context).size.width * 0.8,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Welcome 👋🏼",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Today's Tasks",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Welcome 👋🏼",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
                     ),
-                    TextButton.icon(
-                      onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context)=> const TaskEditorScreen()));
-                      }, 
-                      icon: const Icon(Icons.add), 
-                      label: const Text("Add New Task"),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Today's Tasks",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                  ],
-                ),
-                const Divider(
-                  color: Colors.white,
-                ),
-
-                StreamBuilder<List<TaskModel>>(
-                  stream: fetchAllTask!,
-                  builder: (context,  snapshot){
-                  if(snapshot.connectionState == ConnectionState.waiting){
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                  }else {
-                    if(snapshot.hasData){
-                      return SingleChildScrollView(
-                        child:  Column(
-                          children: snapshot.data!
-                          .map((e) => TaskWidget(e))
-                          .toList()),
-                      );
-                      
+                      TextButton.icon(
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context)=> const TaskEditorScreen()));
+                        }, 
+                        icon: const Icon(Icons.add), 
+                        label: const Text("Add New Task"),
+                        ),
+                    ],
+                  ),
+                  const Divider(
+                    color: Colors.white,
+                  ),
+            
+                  StreamBuilder<List<TaskModel>>(
+                    stream: fetchAllTask!,
+                    builder: (context,  snapshot){
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                    }else {
+                      if(snapshot.hasData){
+                        return SingleChildScrollView(
+                          child:  Column(
+                            children: snapshot.data!
+                            .map((e) => TaskWidget(e))
+                            .toList()),
+                        );
+                        
+                      }
+            
                     }
-
-                  }
-                    throw '';
-                  }
-                  
-                  
-                  )
-
-              ],
+                      throw '';
+                    }
+                    
+                    
+                    )
+            
+                ],
+              ),
             ),
           ),
         ));
